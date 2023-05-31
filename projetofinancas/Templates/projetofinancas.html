@@ -1,0 +1,131 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/projetofinancas.css' %}">
+    <title></title>
+</head>
+<body>
+  
+    <table>
+        <tr>   
+            <td class="table-header">
+               <img class="img1" src="{% static 'img/logo.jpeg' %}">
+                <h1>FinanCalc</h1>
+            </td>
+        </tr> 
+    </table>
+    <br>
+    <br>
+    <br>
+    <table>
+        <tr>
+            <td class="table-form1">
+                <form action="." method="post">
+                    {% csrf_token %}
+                    <h4>TOTAL DE RECEITAS E DESPESAS</h4>
+                    <table>
+                        <tr>
+                            <th>Categoria</th>
+                            <th>Valor</th>
+                            <th>Data</th>
+                        </tr>
+                        {% for despesa in despesas %}
+                        <tr>
+                            <td>{{ despesa.categoria_despesa }}</td>
+                            <td>{{ despesa.valor }}</td>
+                            <td>{{ despesa.data }}</td>
+                        </tr>
+                        {% endfor %}
+                        {% for receita in receitas %}
+                        <tr>
+                            <td>{{ receita.categoria_receita }}</td>
+                            <td>{{ receita.valor }}</td>
+                            <td>{{ receita.data }}</td>
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                            <td>Total Despesas:</td>
+                            <td colspan="2">{{ saldo|default:0 }}</td>
+                        </tr>
+                        <tr>
+                            <td>Total Receitas:</td>
+                            <td colspan="2">{{ total_receitas|default:0 }}</td>
+                        </tr>
+                        <tr>
+                            <td>Saldo:</td>
+                            <td colspan="2">{{ saldo|default:0 }}</td>
+                        </tr>
+                    </table>
+                </form>   
+            </td>
+            <td class="table-form2">
+                <form action="." method="post">
+                    {% csrf_token %}
+                    <h4>DESPESAS</h4>
+                    Categoria <select id="id_categoria_despesa" name="categoria_despesa" class="cat-form2">
+                        <option>Alimentação</option>
+                        <option>Carro</option>
+                        <option>Educação</option>
+                        <option>Lazer</option>
+                        <option>Moradia</option>
+                        <option>Outras Despesas</option>
+                        <option>Salário</option>
+                        <option>Saúde e Bem-Estar</option>
+                        <option>Serviços</option>
+                        <option>Transportes</option>
+                        <option>Supermercado</option>
+                        <option>Farmácia</option>
+                        <option>Acadêmia</option>
+                        <option>Cursos</option>
+                    </select>
+                    <br>
+                    <br>
+                    <br>
+                    Valor <input type="value" name="valor_despesa" placeholder="Valor">
+                    <br>
+                    <br>
+                    <br>
+                    Data <input type="date" name="data_despesa" placeholder="Data">
+                    <br>
+                    <br>
+                    <br>
+                    <button class="botao" type="submit" name="despesa_submit">ADICIONAR</button>
+                    <br>
+                    <br>
+                    <br>
+                    <button class="botao" type="submit">DELETAR</button>
+                </form>
+            </td>
+            <td class="table-form3">
+                <form action="." method="post">
+                    {% csrf_token %}
+                    <h4>RECEITAS</h4>
+                    Categoria <select id="id_categoria_receita" name="categoria_receita" class="cat-form3">
+                        <option>Salário</option>
+                        <option>Outras Entradas</option>
+                    </select>
+                    <br>
+                    <br>
+                    <br>
+                    Valor <input type="value" name="valor_receita" placeholder="Valor">
+                    <br>
+                    <br>
+                    <br>
+                    Data <input type="date" name="data_receita" placeholder="Data">
+                    <br>
+                    <br>
+                    <br>
+                    <button class="botao" type="submit" name="receita_submit">ADICIONAR</button>
+                    <br>
+                    <br>
+                    <br>
+                    <button class="botao" type="submit">DELETAR</button>
+                </form>
+            </td>
+        </tr> 
+    </table>                
+</body>
+</html>
